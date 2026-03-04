@@ -1,5 +1,13 @@
 Importer for TV shows CSV -> MySQL
 
+## Resume Bullet Points
+
+- Designed and implemented a **normalized relational MySQL database** of 10,000+ TV shows across 6 tables (`shows`, `genres`, `show_genres`, `countries`, `show_countries`, `popularity_history`), enforcing referential integrity with foreign-key constraints and many-to-many join tables.
+- Built a **Python ETL pipeline** (`import_tv_shows.py`) using pandas, SQLAlchemy, and pymysql that parses malformed multi-valued CSV fields (JSON, single-quote, and `ast.literal_eval` fallback strategies), batch-inserts records in configurable chunks, and uses `INSERT … ON DUPLICATE KEY UPDATE` for idempotent re-runs.
+- Developed a **Tkinter desktop GUI** (`tv_query_gui_simple.py`) enabling non-technical users to execute parameterized SQL queries (search by name, filter by genre, view popularity rankings) and insert new records through a form-driven interface backed by ACID-compliant transactions with automatic rollback on error.
+- Applied **database normalization** (up to 3NF) to eliminate redundancy in genre and country data, reducing storage overhead and improving query performance through indexed foreign keys.
+- Implemented **robust data-cleaning logic** in Python to handle nullable fields, type coercion (int/float/date), and blank or `NaN` CSV values before writing to the database, ensuring zero dirty records in the final schema.
+
 What this does
 - Reads the CSV `10k_Poplar_Tv_Shows.csv` (same folder by default).
 - Parses `genre_ids` and `origin_country` which are stored as arrays in the CSV.
